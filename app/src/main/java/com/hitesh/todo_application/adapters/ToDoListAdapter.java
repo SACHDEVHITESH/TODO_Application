@@ -162,10 +162,9 @@ public class ToDoListAdapter extends RecyclerView.Adapter<ToDoListAdapter.ToDoLi
                             updateTd.setToDoNotes(todoNote.getText().toString());
                             if (cb.isChecked()) {
                                 updateTd.setToDoTaskStatus("Complete");
-                                holder.deleteButton.setVisibility(View.VISIBLE);
                             } else {
                                 updateTd.setToDoTaskStatus("Incomplete");
-                                holder.deleteButton.setVisibility(View.GONE);
+
                             }
                             SqliteHelper mysqlite = new SqliteHelper(view.getContext());
                             Cursor b = mysqlite.updateTask(updateTd);
