@@ -38,14 +38,6 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:src="@drawable/ic_mode_edit_black_24dp" />
-            <ImageView
-                android:id="@+id/done"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/edit"
-                android:src="@drawable/ic_done_black_24dp" />
 
             <ImageView
                 android:id="@+id/delete"
@@ -53,18 +45,8 @@
                 android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/undo"
+                android:layout_below="@+id/edit"
                 android:src="@drawable/ic_delete_black_24dp"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/undo"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:src="@drawable/ic_undo_black_24dp"
                 android:visibility="gone" />
 
             <TextView
@@ -80,6 +62,7 @@
                 android:textColor="@color/primary_text"
                 android:textSize="18dp"
                 android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/toDoTextNotes"
                 android:layout_width="wrap_content"

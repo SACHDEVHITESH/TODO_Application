@@ -60,6 +60,11 @@ public class ToDoListAdapter extends RecyclerView.Adapter<ToDoListAdapter.ToDoLi
         String tdStatus = td.getToDoTaskStatus();
         if (tdStatus.matches("Complete")) {
             holder.todoDetails.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.todoNotes.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        }
+        if (tdStatus.matches("Incomplete")) {
+            holder.todoDetails.setPaintFlags(holder.todoDetails.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+            holder.todoNotes.setPaintFlags(holder.todoNotes.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
         }
         String type = td.getToDoTaskPrority();
         int color = 0;
@@ -72,46 +77,6 @@ public class ToDoListAdapter extends RecyclerView.Adapter<ToDoListAdapter.ToDoLi
         }
         ((GradientDrawable) holder.proprityColor.getBackground()).setColor(color);
 
-        holder.undoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                holder.doneButton.setVisibility(View.VISIBLE);
-                holder.edit.setVisibility(View.VISIBLE);
-                holder.deleteButton.setVisibility(View.GONE);
-                holder.undoButton.setVisibility(View.GONE);
-                if (!holder.todoDetails.getPaint().isStrikeThruText() && !holder.todoNotes.getPaint().isStrikeThruText()) {
-                    holder.todoDetails.setPaintFlags(holder.todoDetails.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    holder.todoNotes.setPaintFlags(holder.todoNotes.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                } else {
-                    holder.todoDetails.setPaintFlags(holder.todoDetails.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-                    holder.todoNotes.setPaintFlags(holder.todoNotes.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-                }
-
-
-            }
-        });
-        holder.doneButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                holder.doneButton.setVisibility(View.GONE);
-                holder.edit.setVisibility(View.GONE);
-                holder.deleteButton.setVisibility(View.VISIBLE);
-                holder.undoButton.setVisibility(View.VISIBLE);
-                ToDoData updateTd = new ToDoData();
-                updateTd.setToDoID(td.getToDoID());
-                if (!holder.todoDetails.getPaint().isStrikeThruText() && !holder.todoNotes.getPaint().isStrikeThruText()) {
-                    holder.todoDetails.setPaintFlags(holder.todoDetails.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    holder.todoNotes.setPaintFlags(holder.todoNotes.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-
-                } else {
-                    holder.todoDetails.setPaintFlags(holder.todoDetails.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-                    holder.todoNotes.setPaintFlags(holder.todoNotes.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
-                }
-
-
-
-            }
-        });
 
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,8 +162,10 @@ public class ToDoListAdapter extends RecyclerView.Adapter<ToDoListAdapter.ToDoLi
                             updateTd.setToDoNotes(todoNote.getText().toString());
                             if (cb.isChecked()) {
                                 updateTd.setToDoTaskStatus("Complete");
+                                holder.deleteButton.setVisibility(View.VISIBLE);
                             } else {
                                 updateTd.setToDoTaskStatus("Incomplete");
+                                holder.deleteButton.setVisibility(View.GONE);
                             }
                             SqliteHelper mysqlite = new SqliteHelper(view.getContext());
                             Cursor b = mysqlite.updateTask(updateTd);
@@ -250,8 +217,6 @@ public class ToDoListAdapter extends RecyclerView.Adapter<ToDoListAdapter.ToDoLi
             proprityColor = (ImageButton) view.findViewById(R.id.typeCircle);
             edit = (ImageView) view.findViewById(R.id.edit);
             deleteButton = (ImageView) view.findViewById(R.id.delete);
-            undoButton = (ImageView) view.findViewById(R.id.undo);
-            doneButton = (ImageView) view.findViewById(R.id.done);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

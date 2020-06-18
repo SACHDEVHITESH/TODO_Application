@@ -27,16 +27,6 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/toDoTextTime"
-                android:layout_margin="8dp"
-                android:layout_toEndOf="@+id/toDoTextTime"
-                android:layout_toRightOf="@+id/toDoTextTime"
-                android:layout_weight="1"
-                android:entries="@array/time" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/toDoTextTime"
@@ -57,6 +47,16 @@
                     android:hint="Remind me in"
                     android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/toDoTextTime"
+                android:layout_margin="8dp"
+                android:layout_toEndOf="@+id/toDoTextTime"
+                android:layout_toRightOf="@+id/toDoTextTime"
+                android:layout_weight="1"
+                android:entries="@array/time" />
 
         </LinearLayout>
 
